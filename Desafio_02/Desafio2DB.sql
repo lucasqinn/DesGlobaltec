@@ -110,3 +110,4 @@ select cpg.Numero, ps.Nome, cpg.DataVencimento, cpg.DataPagamento,
 	  
   from dbo.ContasPagas as cpg
   left join dbo.pessoas as ps on (cpg.CodigoFornecedor = ps.Codigo);
+  
