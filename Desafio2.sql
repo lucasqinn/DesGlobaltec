@@ -4,7 +4,7 @@ GO
 USE [Desafio2DB]
 GO
 
-
+-- Tebela de contas a pagar
 CREATE TABLE [dbo].[ContasAPagar](
 	[CodigoFornecedor] [bigint] IDENTITY(1,1) NOT NULL,
 	[DataVencimento] [date] NOT NULL,
@@ -23,6 +23,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+
+
+-- Tebela de contas pagas
 CREATE TABLE [dbo].[ContasPagas](
 	[Numero] [bigint] IDENTITY(1,1) NOT NULL,
 	[CodigoFornecedor] [bigint] NOT NULL,
@@ -42,6 +45,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+
+
+-- Tabela de Pessoas
 CREATE TABLE [dbo].[Pessoas](
 	[Codigo] [bigint] IDENTITY(1,1) NOT NULL,
 	[Nome] [varchar](110) NOT NULL,
@@ -54,6 +60,9 @@ CREATE TABLE [dbo].[Pessoas](
 GO
 SET IDENTITY_INSERT [dbo].[ContasPagas] ON 
 GO
+
+
+-- Alimentando as tabelas
 INSERT [dbo].[ContasPagas] ([Numero], [CodigoFornecedor], [DataVencimento], [DataPagamento], [Valor], [Acrescimo], [Desconto]) VALUES (1, 1, CAST(N'2021-12-10' AS Date), CAST(N'2021-10-27' AS Date), CAST(50.000000 AS Numeric(18, 6)), CAST(0.000000 AS Numeric(18, 6)), CAST(0.000000 AS Numeric(18, 6)))
 GO
 INSERT [dbo].[ContasPagas] ([Numero], [CodigoFornecedor], [DataVencimento], [DataPagamento], [Valor], [Acrescimo], [Desconto]) VALUES (5, 2, CAST(N'2021-12-10' AS Date), CAST(N'2021-10-26' AS Date), CAST(75.000000 AS Numeric(18, 6)), CAST(0.000000 AS Numeric(18, 6)), CAST(0.000000 AS Numeric(18, 6)))
@@ -82,3 +91,23 @@ INSERT [dbo].[Pessoas] ([Codigo], [Nome], [cpfCNPJ]) VALUES (7, N'Elisa Giovanna
 GO
 SET IDENTITY_INSERT [dbo].[Pessoas] OFF
 GO
+
+-- Filtrando a requisição do Gerente
+
+select cp.numero
+	  ,ps.Nome
+	  ,cp.DataVencimento
+	  ,null as DataPagamento
+	  ,(cp.valor - cp.Desconto) + cp.Acrescimo as ValorLiquido
+	  ,'A PAGAR' as Identificador
+  from dbo.ContasAPagar as cp
+  left join dbo.pessoas as ps on (cp.CodigoFornecedor = ps.Codigo)
+union all
+select cpg.numero
+	  ,ps.Nome
+	  ,cpg.DataVencimento
+	  ,cpg.DataPagamento
+	  ,(cpg.valor - cpg.Desconto) + cpg.Acrescimo as ValorLiquido
+	  ,'PAGA' as Identificador
+  from dbo.ContasPagas as cpg
+  left join dbo.pessoas as ps on (cpg.CodigoFornecedor = ps.Codigo);
