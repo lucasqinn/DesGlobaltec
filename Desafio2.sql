@@ -96,20 +96,17 @@ GO
 
 -- Filtrando a requisição do Gerente
 
-select cp.numero
-	  ,ps.Nome
-	  ,cp.DataVencimento
-	  ,null as DataPagamento
-	  ,(cp.valor - cp.Desconto) + cp.Acrescimo as ValorLiquido
-	  ,'A PAGAR' as Identificador
+select cp.Numero , ps.Nome, cp.DataVencimento, null as DataPagamento,
+	  (cp.valor - cp.Desconto) + cp.Acrescimo as ValorLiquido, 
+	  'A Pagar' as Identificador
+	  
   from dbo.ContasAPagar as cp
   left join dbo.pessoas as ps on (cp.CodigoFornecedor = ps.Codigo)
+  
 union all
-select cpg.numero
-	  ,ps.Nome
-	  ,cpg.DataVencimento
-	  ,cpg.DataPagamento
-	  ,(cpg.valor - cpg.Desconto) + cpg.Acrescimo as ValorLiquido
-	  ,'PAGA' as Identificador
+select cpg.Numero, ps.Nome, cpg.DataVencimento, cpg.DataPagamento,
+	  (cpg.valor - cpg.Desconto) + cpg.Acrescimo as ValorLiquido,
+	  'Pago' as Identificador
+	  
   from dbo.ContasPagas as cpg
   left join dbo.pessoas as ps on (cpg.CodigoFornecedor = ps.Codigo);
