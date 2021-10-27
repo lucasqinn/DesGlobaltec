@@ -2,12 +2,12 @@
 
 Projeto de webapi desenvolvido no Visual Studio 2019, com:
 
-  > .NET 5.0
-  > Entity Framework Core
-  > JTW (Autenticação)
-  > Swagger
-  > Postman (testes) 
-  > PostgreSQL (banco de dados)
+  > .NET 5.0;
+  > Entity Framework Core;
+  > JTW (Autenticação);
+  > Swagger;
+  > Postman (testes);
+  > PostgreSQL (banco de dados);
 
 # ROTAS
 
