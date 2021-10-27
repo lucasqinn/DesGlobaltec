@@ -9,6 +9,8 @@ Projeto de webapi desenvolvido no Visual Studio 2019, com:
   > Postman (testes);
   > PostgreSQL (banco de dados);
 
+Video de demonstração: https://www.youtube.com/watch?v=jnvErsP0SuY
+
 # ROTAS
 
 Registro e obtenção do token:
@@ -31,5 +33,3 @@ Modificar dados de uma pessoa pelo ID:
 
 Deletar uma pessoa pelo ID:
   > DELETE /api/Peoples/{id}
-
-Video de demonstração: https://www.youtube.com/watch?v=jnvErsP0SuY
