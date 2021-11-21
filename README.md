@@ -9,7 +9,6 @@ Projeto de webapi desenvolvido no Visual Studio 2019, com:
   > Postman (testes);
   > PostgreSQL (banco de dados);
 
-Video de demonstração: https://www.youtube.com/watch?v=jnvErsP0SuY
 
 # ROTAS
 
