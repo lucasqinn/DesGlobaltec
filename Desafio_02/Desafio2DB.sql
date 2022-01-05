@@ -94,7 +94,7 @@ GO
 SET IDENTITY_INSERT [dbo].[Pessoas] OFF
 GO
 
--- Filtrando a requisição do Gerente
+-- Filtrando a requisição do Gerente.
 
 select cp.Numero , ps.Nome, cp.DataVencimento, null as DataPagamento,
 	  (cp.valor - cp.Desconto) + cp.Acrescimo as ValorLiquido, 
